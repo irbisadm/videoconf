@@ -12,4 +12,22 @@
   .content {
     padding: 0 16px;
   }
+
+}
+.fullpage{
+  height: calc(100vh - 180px);
+}
+.hflex{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+
+}
+.inputline{
+  order: 0;
+  flex: 0 1 auto;
+  align-self: auto;
 }
