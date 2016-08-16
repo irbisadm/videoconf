@@ -24,8 +24,8 @@ if(cachedState!=null){
     auth : false,
     auth_error: false,
     auth_msg: "",
-    session_id :0,
-    account_id:0,
+      session_id :0,
+      account_id:0,
     balance:0,
     async_inprogress: false
   };
@@ -54,11 +54,15 @@ const store = createStore((state=defaultState, params) => {
       localStorage.setItem('last',ceed);
       localStorage.setItem('cache',JSON.stringify(newState));
       return newState;
-    case 'LOGIN_START':
+    case 'FETCH_START':
       newState =  { ...state, async_inprogress: true};
       localStorage.setItem('last',ceed);
       localStorage.setItem('cache',JSON.stringify(newState));
-
+      return newState;
+    case 'FETCH_END':
+      newState =  { ...state, async_inprogress: false};
+      localStorage.setItem('last',ceed);
+      localStorage.setItem('cache',JSON.stringify(newState));
       return newState;
     case 'LOGIN_ERR':
       newState =  { ...state, auth: false,

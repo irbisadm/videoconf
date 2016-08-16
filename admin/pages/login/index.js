@@ -11,6 +11,7 @@
 import React, { PropTypes } from 'react';
 import Layout from '../../components/Layout';
 import LoginForm from '../../components/Auth/LoginForm';
+import UserList from '../../components/UserManage/UserList.js';
 import s from './styles.css';
 
 
@@ -25,13 +26,9 @@ class LoginPage extends React.Component {
   render() {
     return (
         <Layout className={s.content}>
-          <div className={s.fullpage+" mdl-grid"}>
-            <div className="mdl-cell mdl-cell--4-col mdl-cell--1-col-phone"></div>
-            <div className={s.hflex+" mdl-cell mdl-cell--4-col mdl-cell--10-col-phone"}>
-              <LoginForm/>
-            </div>
-            <div className="mdl-cell mdl-cell--4-col mdl-cell--1-col-phone"></div>
-          </div>
+            <UserList/>
+            <LoginForm/>
+
         </Layout>
     );
   }

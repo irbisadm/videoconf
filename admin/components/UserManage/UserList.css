@@ -1,0 +1,9 @@
+.errormsg{
+    font-size: 22px;
+    color: #B71C1C;
+    margin: 40px 0;
+    text-align: center;
+}
+.fullpage{
+    height: calc(100vh - 180px);
+}

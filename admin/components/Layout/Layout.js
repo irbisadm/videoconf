@@ -32,7 +32,11 @@ class Layout extends React.Component {
   }
 
   render() {
-
+    window.addEventListener('storage', (e)=>{
+      if(e.key=='cache'){
+        store.dispatch({type:"EDITED_OTHER",value:JSON.parse(e.newValue)});
+      }
+    });
     return (
       <Provider store={store}>
         <div className="mdl-layout mdl-js-layout" ref={node => (this.root = node)}>

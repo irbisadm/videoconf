@@ -16,11 +16,13 @@ class LoginForm extends React.Component {
         };
     }
     componentDidMount() {
-        window.componentHandler.upgradeElements(this.refs.root);
+        window.componentHandler.upgradeElement(this.refs.login);
+        window.componentHandler.upgradeElement(this.refs.email);
     }
 
     componentWillUnmount(){
-        window.componentHandler.downgradeElements(this.refs.root);
+        window.componentHandler.downgradeElements(this.refs.login);
+        window.componentHandler.downgradeElements(this.refs.email);
     }
 
     render() {
@@ -28,35 +30,39 @@ class LoginForm extends React.Component {
             return(<div className="js_auth_ok"></div>);
         }
         return (
-            <div ref="root">
-                <div className={this.props.auth_error?s.errorline:s.hiddenline}>
-                    {this.props.auth_msg}
-                </div>
-                <div className={s.inputline}>
-                    <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input className="mdl-textfield__input" type="text" id="loginEmail" value={this.state.login}
-                               onChange={(e) => {
-                                   this.setState({login: e.target.value});
-                               }}/>
-                        <label className="mdl-textfield__label" htmlFor="loginEmail">Email</label>
+            <div className={s.fullpage+" mdl-grid"}>
+                <div className="mdl-cell mdl-cell--4-col mdl-cell--1-col-phone"></div>
+                <div className={s.hflex+" mdl-cell mdl-cell--4-col mdl-cell--10-col-phone"}>
+                    <div className={this.props.auth_error?s.errorline:s.hiddenline}>
+                        {this.props.auth_msg}
+                    </div>
+                    <div className={s.inputline}>
+                        <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ref="login">
+                            <input className="mdl-textfield__input" type="text" id="loginEmail" value={this.state.login}
+                                   onChange={(e) => {
+                                       this.setState({login: e.target.value});
+                                   }}/>
+                            <label className="mdl-textfield__label" htmlFor="loginEmail">Email</label>
+                        </div>
+                    </div>
+                    <div className={s.inputline}>
+                        <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" ref="email">
+                            <input className="mdl-textfield__input" type="password" id="loginPassword" value={this.state.pass}
+                                   onChange={(e) => {
+                                       this.setState({pass: e.target.value});
+                                   }}/>
+                            <label className="mdl-textfield__label" htmlFor="loginPassword">Password</label>
+                        </div>
+                    </div>
+                    <div className={s.inputline} onClick={()=> {
+                        this.props.login(this.state.login, this.state.pass)
+                    }}>
+                        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Login
+                        </button>
                     </div>
                 </div>
-                <div className={s.inputline}>
-                    <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input className="mdl-textfield__input" type="password" id="loginPassword" value={this.state.pass}
-                               onChange={(e) => {
-                                   this.setState({pass: e.target.value});
-                               }}/>
-                        <label className="mdl-textfield__label" htmlFor="loginPassword">Password</label>
-                    </div>
-                </div>
-                <div className={s.inputline} onClick={()=> {
-                    this.props.login(this.state.login, this.state.pass)
-                }}>
-                    <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                        Login
-                    </button>
-                </div>
+                <div className="mdl-cell mdl-cell--4-col mdl-cell--1-col-phone"></div>
             </div>
         );
     }
@@ -76,7 +82,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         // Voximplant user logon
         login:(user,password)=>{
-            dispatch({type:'LOGIN_START'});
+            dispatch({type:'FETCH_START'});
             //We can't do this inside Redux! Redux MUST always be sync!
             fetch('https://api.voximplant.com/platform_api/Logon?account_email='+user+'&account_password='+password)
                 .then((response)=>{
@@ -86,7 +92,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                     return response.json();
                 })
                 .then((data)=>{
-                    console.log(data);
                     if(typeof(data.error)!="undefined"){
                         dispatch({type:'LOGIN_ERR',msg:data.error.msg});
                         return;
