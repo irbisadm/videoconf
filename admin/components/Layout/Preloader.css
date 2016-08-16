@@ -1,0 +1,6 @@
+.preloader{
+    width: 100%;
+}
+.preloader div:nth-child(1){
+    background-color: #F57C00 !important;
+}

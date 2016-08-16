@@ -12,6 +12,7 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import Header from './Header';
 import Footer from '../Footer';
+import Preloader from './Preloader';
 import s from './Layout.css';
 import store from '../../core/store';
 import {Provider} from 'react-redux';
@@ -31,12 +32,14 @@ class Layout extends React.Component {
   }
 
   render() {
+
     return (
       <Provider store={store}>
         <div className="mdl-layout mdl-js-layout" ref={node => (this.root = node)}>
           <div className="mdl-layout__inner-container">
             <Header />
             <main className="mdl-layout__content">
+              <Preloader/>
               <div {...this.props} className={cx(s.content, this.props.className)} />
               <Footer />
             </main>
@@ -46,5 +49,6 @@ class Layout extends React.Component {
     );
   }
 }
+
 
 export default Layout;
