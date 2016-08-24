@@ -13,6 +13,7 @@ use Voximplant\VideoConf\TimestampTrait;
  * Class UserConf
  * @package Voximplant\VideoConf\Data
  * @Entity @Table(name="participant")
+ * @HasLifecycleCallbacks
  */
 class Participant
 {

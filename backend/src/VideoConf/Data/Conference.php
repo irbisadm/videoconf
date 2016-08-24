@@ -14,6 +14,7 @@ use Voximplant\VideoConf\TimestampTrait;
  * Class Conference
  * @package Voximplant\VideoConf\Data
  * @Entity @Table(name="conference")
+ * @HasLifecycleCallbacks
  */
 class Conference
 {

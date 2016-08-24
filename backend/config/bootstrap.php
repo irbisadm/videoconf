@@ -4,6 +4,7 @@ use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 //Doctrine2 settings
 $isDev = true;
+header('Access-Control-Allow-Origin:*');
 $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__ . "/../src/VideoConf/Data"), $isDev);
 
 $conn = array(

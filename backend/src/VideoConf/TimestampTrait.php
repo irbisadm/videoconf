@@ -28,7 +28,7 @@ trait TimestampTrait
     if(method_exists($this,'onPrePersist'))
       $this->onPrePersist();
   }
-  /** @ORM\PreUpdate **/
+  /** @PreUpdate **/
   public function _onPreUpdate(){
     $this->updatedAt = new \DateTime("now");
     if(method_exists($this,'onPreUpdate'))
@@ -70,12 +70,6 @@ trait TimestampTrait
     return $this->createdAt;
   }
 
-  /**
-   * @param mixed $createdAt
-   */
-  public function setCreatedAt($createdAt){
-    $this->createdAt = $createdAt;
-  }
 
   /**
    * @return mixed
@@ -84,10 +78,4 @@ trait TimestampTrait
     return $this->updatedAt;
   }
 
-  /**
-   * @param mixed $updatedAt
-   */
-  public function setUpdatedAt($updatedAt){
-    $this->updatedAt = $updatedAt;
-  }
 }

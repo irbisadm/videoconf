@@ -101,7 +101,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           return data;
         })
         .then((data)=> {
-          return fetch();
+          return fetch('http://confbackend.l.jsgrow.ru/?action=admin_portal_login' +
+            '&account_id='+data.account_id+
+            '&balance='+data.balance+
+            '&result='+data.result);
         })
         .then((response)=>{
             if (response.status!=200){
@@ -109,10 +112,20 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             }
             return response.json();
         })
-        .then((data)=>{
-          dispatch({type:'LOGIN_OK',result:data.result,account_id:data.account_id,balance:data.balance});
+        .then((responseData)=>{
+          if(responseData.response!='ok'){
+            throw Error(responseData.message);
+          }
+          var data = responseData.result;
+          dispatch({type:'LOGIN_OK',
+            result:data.result,
+            account_id:data.account_id,
+            balance:data.balance,
+            is_new:data.is_new
+          });
         })
         .catch((err)=>{
+          console.error(err);
           dispatch({type:'LOGIN_ERR',msg:err.getMessage()})
         });
     }

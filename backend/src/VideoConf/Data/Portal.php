@@ -14,6 +14,7 @@ use Voximplant\VideoConf\TimestampTrait;
  * Class Portal
  * @package Voximplant\VideoConf\Data
  * @Entity @Table(name="portal")
+ * @HasLifecycleCallbacks
  */
 class Portal
 {
@@ -29,9 +30,6 @@ class Portal
 
   /** @Column(type="string",name="vox_id") **/
   protected $voxId;
-
-  /** @Column(type="string",name="vox_api_key") **/
-  protected $voxApiKey;
 
   /** @OneToMany(targetEntity="Participant", mappedBy="portal") **/
   protected $portalParticipants;

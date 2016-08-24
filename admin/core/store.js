@@ -24,9 +24,10 @@ if(cachedState!=null){
     auth : false,
     auth_error: false,
     auth_msg: "",
-      session_id :0,
-      account_id:0,
+    session_id:0,
+    account_id:0,
     balance:0,
+    is_new:true,
     async_inprogress: false
   };
 }
@@ -44,6 +45,7 @@ const store = createStore((state=defaultState, params) => {
         session_id:params.result,
         account_id:params.account_id,
         balance:params.balance,
+        is_new:params.is_new,
         async_inprogress: false};
       localStorage.setItem('last',ceed);
       localStorage.setItem('cache',JSON.stringify(newState));

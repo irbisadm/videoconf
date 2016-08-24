@@ -15,6 +15,7 @@ use Voximplant\VideoConf\TimestampTrait;
  * Class ServiceUser
  * @package Voximplant\VideoConf\Data
  * @Entity @Table(name="service_user")
+ * @HasLifecycleCallbacks
  */
 class ServiceUser
 {
@@ -27,6 +28,9 @@ class ServiceUser
 
   /** @Column(type="string",name="vox_api_key") **/
   protected $voxApiKey;
+
+  /** @Column(type="boolean",name="first_login") **/
+  protected $firstLogin = true;
 
   /** @OneToMany(targetEntity="Conference", mappedBy="owner") **/
   protected $ownConf;
