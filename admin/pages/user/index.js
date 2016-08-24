@@ -10,26 +10,43 @@
 
 import React, { PropTypes } from 'react';
 import Layout from '../../components/Layout';
-import UserList from '../../components/UserManage/UserList.js';
+import LoginForm from '../../components/Auth/LoginForm';
 import s from './styles.css';
 
+class UserPage extends React.Component {
 
-class LoginPage extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state ={
+            account_email:'',
+            account_password:'',
+            active:'',
+            account_first_name:'',
+            account_last_name:''
+        }
+    }
 
-  static propTypes = {};
+    static propTypes = {
+  };
 
-  componentDidMount() {}
 
-  componentWillUnmount(){}
+
+  componentDidMount() {
+  }
+
+  createAccount(){
+
+  }
 
   render() {
     return (
         <Layout className={s.content}>
-            <UserList/>
+
+          <LoginForm/>
         </Layout>
     );
   }
 
 }
 
-export default LoginPage;
+export default UserPage;

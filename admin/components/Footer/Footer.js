@@ -9,7 +9,6 @@
  */
 
 import React from 'react';
-import Link from '../Link';
 
 function Footer() {
   return (
@@ -17,8 +16,6 @@ function Footer() {
       <div className="mdl-mini-footer__left-section">
         <div className="mdl-logo">© Voximplant</div>
         <ul className="mdl-mini-footer__link-list">
-          <li><Link to="/privacy">Privacy & Terms</Link></li>
-          <li><Link to="/not-found">Not Found</Link></li>
         </ul>
       </div>
       <div className="mdl-mini-footer__right-section">

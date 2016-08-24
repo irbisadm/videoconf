@@ -2,5 +2,13 @@
   {
     "path": "/",
     "page": "./pages/login"
+  },
+  {
+    "path": "/user",
+    "page": "./pages/user"
+  },
+  {
+    "path": "/error",
+    "page": "./pages/error"
   }
 ]

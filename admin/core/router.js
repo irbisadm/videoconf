@@ -42,7 +42,6 @@ function matchURI(route, path) {
   for (let i = 1; i < match.length; i++) {
     params[route.keys[i - 1].name] = match[i] !== undefined ? decodeParam(match[i]) : undefined;
   }
-
   return params;
 }
 
@@ -51,7 +50,6 @@ function matchURI(route, path) {
 function resolve(routes, context) {
   for (const route of routes) {
     const params = matchURI(route, context.error ? '/error' : context.pathname);
-
     if (!params) {
       continue;
     }

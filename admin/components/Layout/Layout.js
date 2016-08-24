@@ -12,6 +12,7 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import Header from './Header';
 import Footer from '../Footer';
+import LoginForm from '../../components/Auth/LoginForm';
 import Preloader from './Preloader';
 import s from './Layout.css';
 import store from '../../core/store';
@@ -44,6 +45,7 @@ class Layout extends React.Component {
             <Header />
             <main className="mdl-layout__content">
               <Preloader/>
+              <LoginForm/>
               <div {...this.props} className={cx(s.content, this.props.className)} />
               <Footer />
             </main>
