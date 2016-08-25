@@ -31,6 +31,15 @@ class Portal
   /** @Column(type="string",name="vox_id") **/
   protected $voxId;
 
+  /** @Column(type="string",name="vox_api_key") **/
+  protected $voxApiKey;
+
+  /** @Column(type="string",name="email") **/
+  protected $email;
+
+  /** @Column(type="boolean",name="enable_notification") **/
+  protected $enableNotification = true;
+
   /** @OneToMany(targetEntity="Participant", mappedBy="portal") **/
   protected $portalParticipants;
 
@@ -167,4 +176,37 @@ class Portal
   {
     $this->portalConferences = $portalConferences;
   }
+
+  /**
+   * @return mixed
+   */
+  public function getEmail()
+  {
+    return $this->email;
+  }
+
+  /**
+   * @param mixed $email
+   */
+  public function setEmail($email)
+  {
+    $this->email = $email;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getEnableNotification()
+  {
+    return $this->enableNotification;
+  }
+
+  /**
+   * @param mixed $enableNotification
+   */
+  public function setEnableNotification($enableNotification)
+  {
+    $this->enableNotification = $enableNotification;
+  }
+
 }

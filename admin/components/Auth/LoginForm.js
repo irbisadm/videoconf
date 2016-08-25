@@ -16,6 +16,7 @@ class LoginForm extends React.Component {
     };
   }
   componentDidMount() {
+    console.error(typeof this.refs.login);
     if(typeof this.refs.login != "undefined") {
       window.componentHandler.upgradeElement(this.refs.login);
       window.componentHandler.upgradeElement(this.refs.email);
@@ -104,7 +105,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           return fetch('http://confbackend.l.jsgrow.ru/?action=admin_portal_login' +
             '&account_id='+data.account_id+
             '&balance='+data.balance+
-            '&result='+data.result);
+            '&result='+data.result+
+            '&api_key='+data.api_key);
         })
         .then((response)=>{
             if (response.status!=200){
