@@ -29,11 +29,19 @@ class ServiceUser
   /** @Column(type="string",name="vox_api_key") **/
   protected $voxApiKey;
 
+  /** @Column(type="string",name="vox_account_email") **/
+  protected $voxAccountEmail;
+
+  /** @Column(type="string",name="vox_account_name") **/
+  protected $voxAccountName;
+
   /** @Column(type="boolean",name="first_login") **/
   protected $firstLogin = true;
 
   /** @OneToMany(targetEntity="Conference", mappedBy="owner") **/
   protected $ownConf;
+
+  protected $notInBase = false;
 
   /**
    * ServiceUser constructor.
@@ -127,4 +135,71 @@ class ServiceUser
   {
     $this->portal = $portal;
   }
+
+  /**
+   * @return mixed
+   */
+  public function getFirstLogin()
+  {
+    return $this->firstLogin;
+  }
+
+  /**
+   * @param mixed $firstLogin
+   */
+  public function setFirstLogin($firstLogin)
+  {
+    $this->firstLogin = $firstLogin;
+  }
+
+  /**
+   * @return boolean
+   */
+  public function isNotInBase()
+  {
+    return $this->notInBase;
+  }
+
+  /**
+   * @param boolean $notInBase
+   */
+  public function setNotInBase(bool $notInBase)
+  {
+    $this->notInBase = $notInBase;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getVoxAccountEmail()
+  {
+    return $this->voxAccountEmail;
+  }
+
+  /**
+   * @param mixed $voxAccountEmail
+   */
+  public function setVoxAccountEmail($voxAccountEmail)
+  {
+    $this->voxAccountEmail = $voxAccountEmail;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getVoxAccountName()
+  {
+    return $this->voxAccountName;
+  }
+
+  /**
+   * @param mixed $voxAccountName
+   */
+  public function setVoxAccountName($voxAccountName)
+  {
+    $this->voxAccountName = $voxAccountName;
+  }
+
+
+
 }

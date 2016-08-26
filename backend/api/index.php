@@ -16,7 +16,17 @@ if(!empty($response['action'])){
     case(ActionType::ADMIN_PORTAL_LOGIN):
       die(json_encode($actions->doAdminPortalLogin($response)));
       break;
-    case(ActionType::PANEL_LOGIN):
+    case(ActionType::ADMIN_PORTAL_GET_CLIENTS):
+      die(json_encode($actions->doGetClients($response)));
+      break;
+    case(ActionType::ADMIN_PORTAL_REGISTER_CLIENT):
+      die(json_encode($actions->doEditClient($response)));
+      break;
+    case(ActionType::ADMIN_PORTAL_TOGGLE_CLIENT):
+      die(json_encode($actions->doToggleClientActive($response)));
+      break;
+    case(ActionType::ADMIN_PORTAL_PAY_USER):
+      die(json_encode($actions->doPayUser($response)));
       break;
     case(ActionType::CHECK_SCRIPTS):
       break;

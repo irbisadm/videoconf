@@ -4,6 +4,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import s from './UserList.css';
+import UserRow from './UserRow';
 import Link from '../Link';
 
 
@@ -22,7 +23,6 @@ class UserList extends React.Component {
   componentDidMount() {
     if(this.props.auth)
       this.getChildAccounts(0);
-    console.log(this.refs.root_user_list)
     window.componentHandler.upgradeElements(this.refs.root_user_list);
   }
 
@@ -34,8 +34,8 @@ class UserList extends React.Component {
     let offset = this.state.page*count;
     this.props.fetchStart();
     this.setState({hasError:false,errorMessage:'',page:newPage});
-    fetch('https://api.voximplant.com/platform_api/GetChildrenAccounts' +
-      '?account_id='+this.props.account_id+
+    fetch('http://confbackend.l.jsgrow.ru/?action=admin_portal_get_clients' +
+      '&account_id='+this.props.account_id+
       '&session_id='+this.props.session_id+
       '&count='+count+
       '&offset='+offset)
@@ -48,8 +48,8 @@ class UserList extends React.Component {
       })
       .then((data)=>{
         this.props.fetchEnd();
-        if(typeof data.error != "undefined"){
-          if(data.error.code==100)
+        if( data.response == "error"){
+          if(data.code==100)
             this.props.sessionExpired();
           else
             this.setState({hasError:true,errorMessage:data.error.msg});
@@ -60,6 +60,7 @@ class UserList extends React.Component {
       .catch((e)=>{
         console.error(e);
         this.setState({hasError:false,errorMessage:e.getMessage()});
+        this.props.fetchEnd();
       })
   }
   render() {
@@ -88,23 +89,7 @@ class UserList extends React.Component {
           </thead>
           <tbody>
           {(()=>{return this.state.data.map((item)=>{
-            return <tr key={item.account_id}>
-              <td className="mdl-data-table__cell--non-numeric">
-                <label className="mdl-switch mdl-js-switch mdl-js-ripple-effect" htmlFor={"switch-"+item.account_id}>
-                  <input type="checkbox" id={"switch-"+item.account_id} className="mdl-switch__input" defaultChecked/>
-                  <span className="mdl-switch__label"></span>
-                </label>
-              </td>
-              <td className="mdl-data-table__cell--non-numeric">{item.account_id}</td>
-              <td>{item.account_name}</td>
-              <td>{item.account_email}</td>
-              <td>{item.balance} {item.currency}</td>
-              <td>
-                <button className="mdl-button mdl-js-button mdl-js-ripple-effect">
-                  Add payment
-                </button>
-              </td>
-            </tr>;
+            return <UserRow key={item.account_id} item={item} refreshCallback={()=>{this.getChildAccounts(this.state.page)}}/>;
           })})()}
           </tbody>
         </table>

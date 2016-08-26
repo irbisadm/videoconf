@@ -8,9 +8,11 @@
 
 namespace Voximplant\VideoConf;
 
-
 class ExportableErrorCode
 {
-  const NO_ACTION_FOUND       = 1;
-  const NO_ACTION_SET         = 2;
+  const NO_ACTION_FOUND       = 3001;
+  const NO_ACTION_SET         = 3002;
+  const WRONG_INCOM_PARAMS    = 3003;
+  const PORTAL_NOT_FOUND      = 3004;
+  const SERVICE_USER_NOT_FOUND= 3005;
 }

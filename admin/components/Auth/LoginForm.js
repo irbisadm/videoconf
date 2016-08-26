@@ -16,7 +16,6 @@ class LoginForm extends React.Component {
     };
   }
   componentDidMount() {
-    console.error(typeof this.refs.login);
     if(typeof this.refs.login != "undefined") {
       window.componentHandler.upgradeElement(this.refs.login);
       window.componentHandler.upgradeElement(this.refs.email);
