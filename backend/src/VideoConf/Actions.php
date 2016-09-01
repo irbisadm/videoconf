@@ -243,11 +243,50 @@ class Actions
       'start_balance'
     ]))
       return ExportableError::WrongIncomParams();
+    if($request['acc_pass']!=$request['acc_pass_c'])
+      return ExportableError::PasswordNotEqual();
     $portal = $this->entityManager
       ->getRepository('Voximplant\VideoConf\Data\Portal')
       ->findOneBy(["voxId"=>$request['account_id']]);
     if(is_null($portal))
       return ExportableError::PortalNotFound();
+    $httpRequest = new Request('GET',"https://api.voximplant.com/platform_api/AddAccount" .
+      "?parent_account_id={$request['account_id']}" .
+      "&session_id={$request['session_id']}" .
+      "&account_name={$request['acc_email']}" .
+      "&account_email={$request['acc_email']}" .
+      "&account_password={$request['acc_pass']}" .
+      "&active=true");
+    $client = new Client();
+    $promise = $client->sendAsync($httpRequest);
+    $response = $promise->wait();
+    $content = json_decode($response->getBody()->getContents());
+    if(!empty($content->error))
+      return ExportableError::VoxError($content->error);
+    //TODO: client add to db
+    $cUser = new ServiceUser();
+    $cUser->setIsActive(true);
+    $cUser->setVoxId($content->account_id);
+    $cUser->setVoxAccountName($request['acc_email']);
+    $cUser->setVoxAccountEmail($request['acc_email']);
+    $cUser->setVoxApiKey($content->api_key);
+    $cUser->setPortal($portal);
+    $cUser->setFirstLogin(true);
+    $this->entityManager->persist($cUser);
+    $this->entityManager->flush();
+    if((int)$request['start_balance']!=0){
+      $httpRequest = new Request('GET',"https://api.voximplant.com/platform_api/TransferMoneyToChildAccount" .
+        "?account_id={$request['account_id']}" .
+        "&session_id={$request['session_id']}" .
+        "&child_account_id={$content->account_id}".
+        "&amount={$request['start_balance']}");
+      $client = new Client();
+      $promise = $client->sendAsync($httpRequest);
+      $promise->wait();
+    }
+    return [
+      'response'=>'ok'
+    ];
   }
 
   /**

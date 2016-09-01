@@ -52,4 +52,11 @@ class ExportableError
       'message'=>$error->msg,
     ];
   }
+  static function PasswordNotEqual(){
+    return [
+      'response'=>"error",
+      'code'=>ExportableErrorCode::PASSWORDS_NOT_EQUAL,
+      'message'=>"Password not equal"
+    ];
+  }
 }

@@ -15,4 +15,5 @@ class ExportableErrorCode
   const WRONG_INCOM_PARAMS    = 3003;
   const PORTAL_NOT_FOUND      = 3004;
   const SERVICE_USER_NOT_FOUND= 3005;
+  const PASSWORDS_NOT_EQUAL   = 3005;
 }
