@@ -28,6 +28,9 @@ if(!empty($response['action'])){
     case(ActionType::ADMIN_PORTAL_PAY_USER):
       die(json_encode($actions->doPayUser($response)));
       break;
+    case(ActionType::ADMIN_PORTAL_CREATE_USER):
+      die(json_encode($actions->doCreateUser($response)));
+      break;
     case(ActionType::CHECK_SCRIPTS):
       break;
     default:

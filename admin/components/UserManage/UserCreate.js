@@ -13,12 +13,50 @@ class UserCreate extends React.Component {
       acc_pass:'',
       acc_pass_c:'',
       acc_mobile:'',
-      start_balance:0
+      start_balance:0,
+      hasError:false,
+      errorMessage:'',
     }
   }
 
   storeAcc(){
+    this.setState({hasError:false,errorMessage:''});
+    this.props.fetchStart();
+    fetch('http://confbackend.l.jsgrow.ru/?action=admin_portal_create_user' +
+      '&account_id='+this.props.account_id+
+      '&session_id='+this.props.session_id+
+      '&first_name='+this.state.first_name+
+      '&last_name='+this.state.last_name+
+      '&acc_email='+this.state.acc_email+
+      '&acc_pass='+this.state.acc_pass+
+      '&acc_pass_c='+this.state.acc_pass_c+
+      '&acc_mobile='+this.state.acc_mobile+
+      '&start_balance='+this.state.start_balance)
+      .then((response)=>{
+        if (response.status!=200){
+          this.props.fetchEnd();
+          throw Error("Server error. Please, try again later.");
+        }
+        return response.json();
+      })
+      .then((data)=>{
+        this.props.fetchEnd();
+        if( data.response == "error"){
+          if(data.code==100)
+            this.props.sessionExpired();
+          else{
+            console.error(data);
+            this.setState({hasError:true,errorMessage:data.error.msg});
+          }
 
+        }
+
+      })
+      .catch((e)=>{
+        console.error(e);
+        this.setState({hasError:false,errorMessage:e.getMessage()});
+        this.props.fetchEnd();
+      })
   }
 
   componentDidMount() {
@@ -75,7 +113,7 @@ class UserCreate extends React.Component {
           <label className="mdl-textfield__label" htmlFor="acc_email">Start balance</label>
         </div>
         <div>
-          <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+          <button onClick={()=>{this.storeAcc()}} className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
             Create user
           </button>
         </div>

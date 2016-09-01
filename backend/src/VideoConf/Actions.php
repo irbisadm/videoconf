@@ -250,10 +250,11 @@ class Actions
       ->findOneBy(["voxId"=>$request['account_id']]);
     if(is_null($portal))
       return ExportableError::PortalNotFound();
+    $username = str_replace(['@','.'],'-',$request['acc_email']);
     $httpRequest = new Request('GET',"https://api.voximplant.com/platform_api/AddAccount" .
       "?parent_account_id={$request['account_id']}" .
       "&session_id={$request['session_id']}" .
-      "&account_name={$request['acc_email']}" .
+      "&account_name={$username}" .
       "&account_email={$request['acc_email']}" .
       "&account_password={$request['acc_pass']}" .
       "&active=true");
@@ -267,7 +268,7 @@ class Actions
     $cUser = new ServiceUser();
     $cUser->setIsActive(true);
     $cUser->setVoxId($content->account_id);
-    $cUser->setVoxAccountName($request['acc_email']);
+    $cUser->setVoxAccountName($username);
     $cUser->setVoxAccountEmail($request['acc_email']);
     $cUser->setVoxApiKey($content->api_key);
     $cUser->setPortal($portal);
