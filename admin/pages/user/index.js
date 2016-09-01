@@ -10,7 +10,7 @@
 
 import React, { PropTypes } from 'react';
 import Layout from '../../components/Layout';
-import LoginForm from '../../components/Auth/LoginForm';
+import UserCreate from '../../components/UserManage/UserCreate';
 import s from './styles.css';
 
 class UserPage extends React.Component {
@@ -41,8 +41,7 @@ class UserPage extends React.Component {
   render() {
     return (
         <Layout className={s.content}>
-
-          <LoginForm/>
+          <UserCreate></UserCreate>
         </Layout>
     );
   }

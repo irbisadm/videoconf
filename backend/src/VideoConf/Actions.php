@@ -230,6 +230,26 @@ class Actions
     ];
   }
 
+  public function doCreateUser($request){
+    if($this->fallParams($request,[
+      'account_id',
+      'session_id',
+      'first_name',
+      'last_name',
+      'acc_email',
+      'acc_pass',
+      'acc_pass_c',
+      'acc_mobile',
+      'start_balance'
+    ]))
+      return ExportableError::WrongIncomParams();
+    $portal = $this->entityManager
+      ->getRepository('Voximplant\VideoConf\Data\Portal')
+      ->findOneBy(["voxId"=>$request['account_id']]);
+    if(is_null($portal))
+      return ExportableError::PortalNotFound();
+  }
+
   /**
    * Check required params
    * @param $request array incoming request params
