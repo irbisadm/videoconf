@@ -1,0 +1,27 @@
+[
+  {
+    "path": "/",
+    "page": "./pages/login"
+  },
+  {
+    "path": "/error",
+    "page": "./pages/error",
+    "chunk": "main"
+  },
+  {
+    "path": "/users",
+    "page": "./pages/users"
+  },
+  {
+    "path": "/user/:user_id",
+    "page": "./pages/user"
+  },
+  {
+    "path": "/phone_numbers",
+    "page": "./pages/numbers"
+  },
+  {
+    "path": "/dashboard",
+    "page": "./pages/dashboard"
+  }
+]

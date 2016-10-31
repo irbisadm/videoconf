@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import history from '../../core/history';
 
 class UserCreate extends React.Component {
 
@@ -46,9 +47,14 @@ class UserCreate extends React.Component {
             this.props.sessionExpired();
           else{
             console.error(data);
-            this.setState({hasError:true,errorMessage:data.error.msg});
+            if(typeof data.error !="undefined")
+              this.setState({hasError:true,errorMessage:data.error.msg});
+            else
+              this.setState({hasError:true,errorMessage:data.message});
           }
 
+        }else{
+          history.push('/');
         }
 
       })
